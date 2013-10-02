@@ -1,0 +1,53 @@
+<html>
+<head>
+<link rel="stylesheet"  href="Leaflet/leaflet.css">
+<link rel="stylesheet"  href="Map.css">
+<script src="Leaflet/leaflet.js"></script>
+</head>
+<body>
+		<div id="map"></div>
+		
+        
+	</body>
+<script>
+window.onload = function()
+{
+	var map = L.map('map', {
+		center: [30.0,0.0],
+		zoom: 2,
+	});
+	L.tileLayer('http://{s}.tile.cloudmade.com/1f1136a5507e4b28a3f2640864367628/108066/256/{z}/{x}/{y}.png', {
+		attribution: 'Map data &copy; [...]'
+	}).addTo(map)
+	map.locate({setView: true, maxZoom: 16});
+    
+    function onLocationFound(e) {
+        var radius = e.accuracy / 2;
+
+            L.marker(e.latlng).addTo(map)
+                    .bindPopup("Your radius :" + radius).openPopup();
+
+                        L.circle(e.latlng, radius).addTo(map);
+                        }
+
+                        map.on('locationfound', onLocationFound);
+      
+    function show_image(src, width, height, alt) {
+        var img = document.createElement("img");
+            img.src = src;
+                img.width = width;
+                    img.height = height;
+                        img.alt = alt;
+
+                            // This next line will just add it to the <body> tag
+                                document.body.appendChild(img);
+                                }
+      map.on('click', function(e) {
+        show_image("IMG_3888.JPG", 100, 100, 100);
+          });
+}
+</script>
+
+	
+
+</html>
